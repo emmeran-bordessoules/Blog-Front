@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{id ? 'Modifer' : 'Nouveau' }} post</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="title">Titre</label>
+      <div class="input-group">
+        <input id="title" class="form-control" type="text" placeholder="Entrer un titre" name="title" [(ngModel)]="post.title"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="content">Contenu</label>
+      <div class="input-group">
+        <input id="content" class="form-control" type="text" placeholder="Entrer un contenu" name="content" [(ngModel)]="post.content"/>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="id ? edit() : save()" [disabled]="loading">Save</button>
+</div>

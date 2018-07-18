@@ -1,0 +1,22 @@
+<i class="fas fa-plus-circle fa-4x btn-outline-primary" (click)="addPost()"></i>
+<button type="button" class="btn" (click)="getPosts()">Get posts</button>
+
+<div *ngFor="let post of posts">
+  <div class="card" style="width: 18rem;" routerLink="/posts/{{post.id}}">
+    <div class="card-body">
+      <div *ngIf="post.isAuthor && this.isAdmin()" class="btn-group float-right" role="group">
+        <button type="button" class="close fas fa-edit small-icons" (click)="$event.stopPropagation(); editPost(post.id)">
+        </button>
+        <button type="button" class="close fas fa-times small-icons" (click)="$event.stopPropagation(); deletePost(post.id)">
+        </button>
+      </div>
+      <h5 class="card-title" [innerHtml]="post.title"></h5>
+      <h6 class="card-subtitle mb-2 text-muted" [innerHtml]="post.creationDate | date:'medium'"></h6>
+      <h6 class="card-subtitle mb-2 text-muted" [innerHtml]="post.author ? post.author.userName : ''"></h6>
+      <p class="card-text" [innerHtml]="post.content"></p>
+    </div>
+  </div>
+</div>
+<div *ngIf="posts && posts.length == 0" style="width: 18rem;">
+  <div class="alert alert-danger">Pas de posts</div>
+</div>

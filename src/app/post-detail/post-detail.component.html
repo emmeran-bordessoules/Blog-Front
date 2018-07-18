@@ -1,0 +1,40 @@
+<button class="btn" routerLink="/posts">Retour</button>
+
+<div class="card" *ngIf="post">
+  <div class="card-body">
+    <div *ngIf="post.isAuthor || this.isAdmin()" class="btn-group float-right" role="group">
+      <button type="button" class="close fas fa-edit small-icons" (click)="$event.stopPropagation(); editPost()">
+      </button>
+      <button type="button" class="close fas fa-times small-icons" (click)="$event.stopPropagation(); deletePost(post.id)">
+      </button>
+    </div>
+    <h5 class="card-title" [innerHtml]="post.title"></h5>
+    <h6 class="card-subtitle mb-2 text-muted" [innerHtml]="post.creationDate | date:'medium'"></h6>
+    <h6 class="card-subtitle mb-2 text-muted" [innerHtml]="post.author ? post.author.userName : ''"></h6>
+    <p class="card-text" [innerHtml]="post.content"></p>
+  </div>
+</div>
+<div *ngIf="comments">
+  <div *ngFor="let comment of comments" class="card">
+    <div class="card-body">
+      <div *ngIf="comment.isAuthor || this.isAdmin()" class="btn-group float-right" role="group">
+        <button type="button" class="close fas fa-edit small-icons" (click)="$event.stopPropagation(); editComment(comment.id)">
+        </button>
+        <button type="button" class="close fas fa-times small-icons" (click)="$event.stopPropagation(); deleteComment(comment.id)">
+        </button>
+      </div>
+      <h6 class="card-subtitle mb-2 text-muted" [innerHtml]="comment.creationDate | date:'medium'"></h6>
+      <h6 class="card-subtitle mb-2 text-muted" [innerHtml]="comment.author ? comment.author.userName : ''"></h6>
+      <p class="card-text" [innerHtml]="comment.content"></p>
+    </div>
+  </div>
+</div>
+<div *ngIf="comments && comments.length == 0">
+  <div class="alert alert-danger">Pas de commentaires</div>
+</div>
+<div *ngIf="this.isConnected()" class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Entrer un commentaire" [(ngModel)]="comment">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" (click)="sendComment()" [disabled]="comment == ''">Envoyer</button>
+  </div>
+</div>

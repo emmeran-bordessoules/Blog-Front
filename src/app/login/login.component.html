@@ -1,0 +1,17 @@
+<form *ngIf="!this.isConnected()">
+  <div class="form-group">
+    <label for="loginEmail">Email</label>
+    <input id="loginEmail" name="loginEmail" class="form-control" type="text" [(ngModel)]="loginData.username"/>
+  </div>
+  <div class="form-group">
+    <label for="loginPassword">Password</label>
+    <input id="loginPassword" name="loginPassword" class="form-control" type="password" [(ngModel)]="loginData.password"/>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-default" (click)="login()">Log In</button>
+  </div>
+</form>
+<div *ngIf="this.isConnected()">
+  <span class="alert alert-primary">{{loginData.username}}</span>
+  <button class="btn btn-default" (click)="logout()">Log Out</button>
+</div>
